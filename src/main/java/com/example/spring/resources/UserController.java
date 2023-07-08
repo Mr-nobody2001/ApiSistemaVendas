@@ -3,8 +3,6 @@ package com.example.spring.resources;
 import com.example.spring.model.entities.User;
 import com.example.spring.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +18,8 @@ public class UserController {
     @Autowired
     private UserService userService;
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<User>> findAll() {
-        List<User> userList = userService.findAll();
+    public ResponseEntity<List<User>> findAllUsers() {
+        List<User> userList = userService.findAllUsers();
 
         return ResponseEntity.ok().body(userList);
     }
