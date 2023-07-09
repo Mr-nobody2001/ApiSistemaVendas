@@ -7,6 +7,9 @@ import lombok.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
+
 @NoArgsConstructor
 @Data
 @Entity
@@ -17,21 +20,30 @@ public class Order implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
 
     @NonNull
     //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssZ", timezone = "GMT")
+    @EqualsAndHashCode.Exclude
     private Instant moment;
 
     @NonNull
     @Setter(AccessLevel.NONE)
     @Getter(AccessLevel.NONE)
+    @EqualsAndHashCode.Exclude
     private Integer orderStatus;
 
     @NonNull
     @ManyToOne
     @JoinColumn(name = "client_id")
+    @EqualsAndHashCode.Exclude
     private User client;
+
+    @Setter(AccessLevel.NONE)
+    @OneToMany(mappedBy = "id.order")
+    @EqualsAndHashCode.Exclude
+    private Set<OrderItem> orderItems = new HashSet<>();
 
     public Order(@NonNull Instant moment, @NonNull OrderStatus orderStatus, @NonNull User client) {
         this.moment = moment;

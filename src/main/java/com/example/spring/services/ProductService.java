@@ -14,14 +14,6 @@ public class ProductService {
     private ProductRepository productRepository;
 
     public List<Product> findAllProducts() {
-        List<Product> productList = productRepository.findAll();
-
-        if (!productList.isEmpty()) {
-            for (Product p : productList) {
-                p.getCategories().addAll(productRepository.findCategoriesByIdProduct(p.getId()));
-            }
-        }
-
         return productRepository.findAll();
     }
 
@@ -31,8 +23,6 @@ public class ProductService {
         if (optionalProduct.isEmpty()) {
             return null;
         }
-
-        optionalProduct.get().getCategories().addAll(productRepository.findCategoriesByIdProduct(productId));
 
         return optionalProduct.get();
     }
