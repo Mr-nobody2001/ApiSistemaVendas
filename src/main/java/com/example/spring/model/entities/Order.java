@@ -2,7 +2,12 @@ package com.example.spring.model.entities;
 
 import com.example.spring.model.entities.enums.OrderStatus;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -23,18 +28,15 @@ public class Order implements Serializable {
     @EqualsAndHashCode.Include
     private Long id;
 
-    @NonNull
     //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssZ", timezone = "GMT")
     @EqualsAndHashCode.Exclude
     private Instant moment;
 
-    @NonNull
     @Setter(AccessLevel.NONE)
     @Getter(AccessLevel.NONE)
     @EqualsAndHashCode.Exclude
     private Integer orderStatus;
 
-    @NonNull
     @ManyToOne
     @JoinColumn(name = "client_id")
     @EqualsAndHashCode.Exclude
@@ -45,7 +47,11 @@ public class Order implements Serializable {
     @EqualsAndHashCode.Exclude
     private Set<OrderItem> orderItems = new HashSet<>();
 
-    public Order(@NonNull Instant moment, @NonNull OrderStatus orderStatus, @NonNull User client) {
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    @EqualsAndHashCode.Exclude
+    private Paymant paymant;
+
+    public Order(Instant moment, OrderStatus orderStatus, User client) {
         this.moment = moment;
         this.setOrderStatus(orderStatus);
         this.client = client;
