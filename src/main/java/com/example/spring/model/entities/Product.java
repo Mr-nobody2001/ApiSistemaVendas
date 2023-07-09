@@ -1,6 +1,5 @@
 package com.example.spring.model.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,20 +12,27 @@ import java.util.Set;
 @RequiredArgsConstructor
 @Data
 @Entity
-@Table(name = "tb_category")
-public class Category implements Serializable {
+@Table(name = "tb_product")
+public class Product implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @NonNull
     private String name;
+    @NonNull
+    private String description;
+    @NonNull
+    private Double price;
+    @NonNull
+    private String imgUrl;
 
     @Setter(AccessLevel.NONE)
-    @ManyToMany(mappedBy = "categories")
-    @JsonIgnore
-    private Set<Product> products = new HashSet<>();
+    @ManyToMany
+    @JoinTable(name = "tb_product_category",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
+    private Set<Category> categories = new HashSet<>();
 }
