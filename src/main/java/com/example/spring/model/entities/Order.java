@@ -43,7 +43,7 @@ public class Order implements Serializable {
     private User client;
 
     @Setter(AccessLevel.NONE)
-    @OneToMany(mappedBy = "id.order")
+    @OneToMany(mappedBy = "id.order", cascade = CascadeType.ALL, orphanRemoval = true)
     @EqualsAndHashCode.Exclude
     private Set<OrderItem> orderItems = new HashSet<>();
 
@@ -65,5 +65,15 @@ public class Order implements Serializable {
         if (orderStatus != null) {
             this.orderStatus = orderStatus.getValue();
         }
+    }
+
+    public double getTotal() {
+        double total = 0.0;
+
+        for (OrderItem oi : this.orderItems) {
+            total += oi.getSubTotal();
+        }
+
+        return total;
     }
 }
