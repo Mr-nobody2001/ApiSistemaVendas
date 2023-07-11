@@ -20,9 +20,10 @@ Alguns pontos importantes sobre o projeto:
 - Gerenciador de dependências: Maven
 - Contêiner: Apache Tomcat
 - Banco de dados: H2 (em memória, fornecido pelo Spring Boot para testes)
-- Mapeamento dos endpoints:
 
-## Usuário (User)
+# Mapeamento dos endpoints:
+
+### Usuário (User)
 
 - GET (listar todos os usuários do banco): /users
 - GET (encontrar usuário por ID): /users/{userId}
@@ -30,7 +31,7 @@ Alguns pontos importantes sobre o projeto:
 - PUT: /users
 - DELETE: /users
 
-## Pedido (Order)
+### Pedido (Order)
 
 - GET (listar todos os pedidos do banco): /orders
 - GET (encontrar pedido por ID): /orders/{orderId}
@@ -38,7 +39,7 @@ Alguns pontos importantes sobre o projeto:
 - PUT: /orders
 - DELETE: /orders
 
-## Produto (Product)
+### Produto (Product)
 
 - GET (listar todos os produtos do banco): /products
 - GET (encontrar produto por ID): /products/{productId}
@@ -46,7 +47,7 @@ Alguns pontos importantes sobre o projeto:
 - PUT: /products
 - DELETE: /products
 
-## Categoria (Category)
+### Categoria (Category)
 
 - GET (listar todas as categorias do banco): /categories
 - GET (encontrar categoria por ID): /categories/{categoryId}
